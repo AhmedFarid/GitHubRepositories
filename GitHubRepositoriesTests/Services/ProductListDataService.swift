@@ -1,15 +1,15 @@
 //
-//  ProductListDataService_Test.swift
-//  IOSTaskTests
+//  RepositoryDataServiceClient.swift
+//  GitHubRepositories
 //
 //  Created by Farido on 20/09/2024.
 //
 
 import XCTest
 import Combine
-@testable import IOSTask
+@testable import GitHubRepositories
 
-final class ProductListDataServiceClient:  ProductListDataServiceProtocol, Mockable {
+final class RepositoryDataServiceClient:  RepositoryDataServiceProtocol, Mockable {
 
     let filename: String
 
@@ -17,20 +17,9 @@ final class ProductListDataServiceClient:  ProductListDataServiceProtocol, Mocka
         self.filename = filename
     }
 
-    func getCategories() -> AnyPublisher<[CategoryModel], Error> {
-        return loadJson(filename: filename, extensionType: .json, responseModel: [CategoryModel].self)
+    func getRepositories() -> AnyPublisher<[RepositoryElement], Error> {
+        return loadJson(filename: filename, extensionType: .json, responseModel: [RepositoryElement].self)
     }
-
-    func getProducts(byCategory: String?) -> AnyPublisher<IOSTask.ProductsModel, Error> {
-        return loadJson(filename: filename, extensionType: .json, responseModel: ProductsModel.self)
-    }
-
-    func loadMoreItem(limit: Int, skip: Int, byCategory: String?) -> AnyPublisher<IOSTask.ProductsModel, Error> {
-        return loadJson(filename: filename, extensionType: .json, responseModel: ProductsModel.self)
-    }
-
-    func getProductDetails(productId: Int) -> AnyPublisher<IOSTask.Product, Error> {
-        return loadJson(filename: filename, extensionType: .json, responseModel: Product.self)
-    }
+  
 }
 
